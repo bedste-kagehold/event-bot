@@ -17,7 +17,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "prepare": "husky",
-        "build": "tsc"
+        "build": "tsc",
+        "start": "tsx ./src/index.ts"
     },
     "devDependencies": {
         "@commitlint/cli": "^20.1.0",
@@ -28,6 +29,7 @@
         "husky": "^9.1.7",
         "lint-staged": "^16.2.5",
         "prettier": "^3.6.2",
+        "tsx": "^4.20.6",
         "typescript": "^5.9.3",
         "typescript-eslint": "^8.46.2"
     },
