@@ -18,7 +18,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "prepare": "husky",
         "build": "tsc",
-        "start": "tsx ./src/index.ts"
+        "start": "tsx --watch ./src/index.ts"
     },
     "devDependencies": {
         "@commitlint/cli": "^20.1.0",
@@ -38,5 +38,10 @@
             "prettier --write",
             "eslint"
         ]
+    },
+    "dependencies": {
+        "chalk": "^5.6.2",
+        "discord.js": "^14.23.2",
+        "dotenv": "^17.2.3"
     }
 }
