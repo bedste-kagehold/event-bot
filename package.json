@@ -1,0 +1,40 @@
+{
+    "name": "event-bot",
+    "version": "1.0.0",
+    "description": "",
+    "homepage": "https://github.com/bedste-kagehold/event-bot#readme",
+    "bugs": {
+        "url": "https://github.com/bedste-kagehold/event-bot/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/bedste-kagehold/event-bot.git"
+    },
+    "license": "MIT",
+    "author": "",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "prepare": "husky",
+        "build": "tsc"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^20.1.0",
+        "@commitlint/config-conventional": "^20.0.0",
+        "@eslint/js": "^9.38.0",
+        "@types/node": "^24.9.1",
+        "eslint": "^9.38.0",
+        "husky": "^9.1.7",
+        "lint-staged": "^16.2.5",
+        "prettier": "^3.6.2",
+        "typescript": "^5.9.3",
+        "typescript-eslint": "^8.46.2"
+    },
+    "lint-staged": {
+        "*.ts": [
+            "prettier --write",
+            "eslint"
+        ]
+    }
+}
