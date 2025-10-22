@@ -1,6 +1,6 @@
+import './envSchema.js';
 import chalk from 'chalk';
 import { Client, Events } from 'discord.js';
-import 'dotenv/config';
 
 const client = new Client({ intents: [] });
 
