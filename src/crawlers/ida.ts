@@ -44,6 +44,10 @@ export default async function idaCrawler() {
         },
     );
 
+    if (!fs.existsSync('events/cachedEvents.json')) {
+        fs.writeFileSync('events/cachedEvents.json', JSON.stringify({}));
+    }
+
     const cachedEvents = JSON.parse(fs.readFileSync('events/cachedEvents.json', 'utf-8')) as Record<
         string,
         { eventId: string; expiresAt: number }[]

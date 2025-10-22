@@ -6,9 +6,9 @@ async function runAllCrawlers() {
     await Promise.allSettled([idaCrawler(), fbCrawler()]);
 }
 
-// Run every day at midnight
+// Run every day at 13:30 Copenhagen time
 new CronJob(
-    '0 0 * * *',
+    '30 13 * * *',
     async () => {
         await runAllCrawlers();
     },
