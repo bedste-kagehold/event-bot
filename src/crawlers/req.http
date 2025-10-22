@@ -1,0 +1,18 @@
+POST https://api.cludo.com/api/v3/2677/12845/search HTTP/1.1
+authorization: SiteKey MjY3NzoxMjg0NTpTZWFyY2hLZXk=
+content-type: application/json
+
+{
+    "ResponseType": "Json",
+    "facets": {
+        "Category": [ "Arrangementer" ],
+        "Organizer": [ "IDA Studieevents", "DTU studieevents", "København studieevents" ],
+        "RelevantFor": [ "Studerende" ],
+        "Status": [ "Afholdes", "Venteliste" ]
+    },
+    "query": "*",
+    "sort": {
+        "StartDate_date":"asc",
+        "DatePublished_date":"asc"
+    }
+}
