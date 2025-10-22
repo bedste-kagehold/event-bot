@@ -8,6 +8,11 @@ interface TypedDocument {
         Description: { Value: string };
         Url: { Value: string };
         EventId: { Value: string };
+        Image: { Value: string };
+        StartDate: { Value: string };
+        Title: { Value: string };
+        HighPrice: { Value: string };
+        LowPrice: { Value: string };
     };
 }
 
@@ -69,7 +74,14 @@ export default async function idaCrawler() {
                 continue;
             }
 
-            await broadcastMessage(guildId, channelId, doc.Fields.Url.Value);
+            await broadcastMessage(guildId, channelId, [
+                doc.Fields.Url.Value,
+                doc.Fields.Image.Value,
+                doc.Fields.Title.Value,
+                doc.Fields.StartDate.Value,
+                doc.Fields.HighPrice.Value,
+                doc.Fields.LowPrice.Value,
+            ]);
 
             cachedEvents[guildId] = [
                 ...(cachedEvents[guildId] || []),

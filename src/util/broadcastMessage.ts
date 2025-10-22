@@ -1,7 +1,12 @@
 import { client } from '../client.js';
 import fs from 'fs';
+import discordGui from '../discordGui.js';
+import { MessageFlags } from 'discord.js';
 
-export async function broadcastMessage(guildId: string, channelId: string, message: string) {
+export async function broadcastMessage(guildId: string, channelId: string, message: string[]) {
+    console.log(message);
+    console.log(`Broadcasting message to guild ${guildId} in channel ${channelId}`);
+
     const channel = await client.channels.fetch(channelId);
 
     if (!channel) {
@@ -13,6 +18,17 @@ export async function broadcastMessage(guildId: string, channelId: string, messa
     }
 
     if (channel.isSendable()) {
-        await channel.send(message);
+        console.log(`Sending message to guild ${guildId} in channel ${channelId}`);
+        if (message.length !== 6) {
+            console.error(
+                `Invalid message format for guild ${guildId}, expected 6 elements but got ${message.length}.`,
+            );
+            return;
+        }
+        const Container = discordGui(message[0]!, message[1]!, message[2]!, message[3]!, message[4]!, message[5]!);
+        await channel.send({
+            components: [Container],
+            flags: MessageFlags.IsComponentsV2,
+        });
     }
 }
