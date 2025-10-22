@@ -7,6 +7,12 @@ async function runAllCrawlers() {
 }
 
 // Run every day at midnight
-new CronJob('0 0 * * *', async () => {
-    await runAllCrawlers();
-});
+new CronJob(
+    '0 0 * * *',
+    async () => {
+        await runAllCrawlers();
+    },
+    null,
+    true,
+    'Europe/Copenhagen',
+);
