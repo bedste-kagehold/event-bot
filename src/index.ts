@@ -1,6 +1,7 @@
 import './envSchema.js';
 import chalk from 'chalk';
 import { Client, Events } from 'discord.js';
+import { registerEvents } from './registerEvents.js';
 
 const client = new Client({ intents: [] });
 
@@ -17,3 +18,5 @@ process.on('SIGINT', () => {
 });
 
 await client.login(process.env.DISCORD_TOKEN);
+
+registerEvents(client);
