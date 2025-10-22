@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import { Client, Events } from 'discord.js';
 import { registerEvents } from './registerEvents.js';
 
-const client = new Client({ intents: [] });
+const client = new Client({ intents: ['Guilds'] });
 
 client.once(Events.ClientReady, (client) => {
     console.log(chalk.bold.greenBright(`Logged in as ${client.user.tag}`));
