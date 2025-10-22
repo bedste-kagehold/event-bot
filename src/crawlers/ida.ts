@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { months } from '../util/time.js';
+import { broadcastMessage } from '../util/broadcastMessage.js';
+import fs from 'fs';
 
 interface TypedDocument {
     Fields: {
@@ -18,7 +20,7 @@ export default async function idaCrawler() {
             ResponseType: 'Json',
             facets: {
                 Category: ['Arrangementer'],
-                Organizer: ['IDA Studieevents', 'DTU studieevents', 'København studieevents'],
+                City: ['Nordsjælland'],
                 RelevantFor: ['Studerende'],
                 Status: ['Afholdes', 'Venteliste'],
                 date: [
@@ -29,7 +31,7 @@ export default async function idaCrawler() {
                         .padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`,
                 ],
             },
-            query: '*',
+            query: 'sushi',
             sort: {
                 StartDate_date: 'asc',
                 DatePublished_date: 'asc',
@@ -43,8 +45,10 @@ export default async function idaCrawler() {
     );
 
     for (const doc of res.data.TypedDocuments) {
-        if (doc.Fields.Description.Value.toLowerCase().includes('sushi')) {
-            console.log('Found event with sushi:', doc.Fields.Url.Value);
+        for (const [guildId, channelId] of Object.entries(
+            JSON.parse(fs.readFileSync('events/channels.json', 'utf-8')) as Record<string, string>,
+        )) {
+            await broadcastMessage(guildId, channelId, doc.Fields.Url.Value);
         }
     }
 }

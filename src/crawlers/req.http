@@ -10,9 +10,5 @@ content-type: application/json
         "RelevantFor": [ "Studerende" ],
         "Status": [ "Afholdes", "Venteliste" ]
     },
-    "query": "*",
-    "sort": {
-        "StartDate_date":"asc",
-        "DatePublished_date":"asc"
-    }
+    "query": "*"
 }
