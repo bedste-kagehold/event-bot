@@ -12,7 +12,7 @@ interface TypedDocument {
 }
 
 export default async function idaCrawler() {
-    const now = new Date(Date.now() + months(1));
+    const endSearchDate = new Date(Date.now() + months(1));
 
     const res = await axios.post<{ TypedDocuments: TypedDocument[] }>(
         'https://api.cludo.com/api/v3/2677/12845/search',
@@ -26,9 +26,9 @@ export default async function idaCrawler() {
                 date: [
                     'StartDate_date',
                     '2025-10-22',
-                    `${now.getFullYear()}-${(now.getMonth() + 1)
+                    `${endSearchDate.getFullYear()}-${(endSearchDate.getMonth() + 1)
                         .toString()
-                        .padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`,
+                        .padStart(2, '0')}-${endSearchDate.getDate().toString().padStart(2, '0')}`,
                 ],
             },
             query: 'sushi',
@@ -45,7 +45,7 @@ export default async function idaCrawler() {
     );
 
     if (!fs.existsSync('events/cachedEvents.json')) {
-        fs.writeFileSync('events/cachedEvents.json', JSON.stringify({}));
+        fs.writeFileSync('events/cachedEvents.json', '{}');
     }
 
     const cachedEvents = JSON.parse(fs.readFileSync('events/cachedEvents.json', 'utf-8')) as Record<
