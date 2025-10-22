@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { months } from '../util/time.js';
+import { days, months } from '../util/time.js';
 import { broadcastMessage } from '../util/broadcastMessage.js';
 import fs from 'fs';
 
@@ -44,11 +44,35 @@ export default async function idaCrawler() {
         },
     );
 
+    const cachedEvents = JSON.parse(fs.readFileSync('events/cachedEvents.json', 'utf-8')) as Record<
+        string,
+        { eventId: string; expiresAt: number }[]
+    >;
+
+    // Expire old events
+    for (const [guildId, events] of Object.entries(cachedEvents)) {
+        cachedEvents[guildId] = events.filter((e) => e.expiresAt > Date.now());
+        if (cachedEvents[guildId].length === 0) {
+            delete cachedEvents[guildId];
+        }
+    }
+
     for (const doc of res.data.TypedDocuments) {
         for (const [guildId, channelId] of Object.entries(
             JSON.parse(fs.readFileSync('events/channels.json', 'utf-8')) as Record<string, string>,
         )) {
+            if (cachedEvents[guildId]?.some((e) => e.eventId === doc.Fields.EventId.Value)) {
+                continue;
+            }
+
             await broadcastMessage(guildId, channelId, doc.Fields.Url.Value);
+
+            cachedEvents[guildId] = [
+                ...(cachedEvents[guildId] || []),
+                { eventId: doc.Fields.EventId.Value, expiresAt: Date.now() + days(7) },
+            ];
         }
     }
+
+    fs.writeFileSync('events/cachedEvents.json', JSON.stringify(cachedEvents));
 }
