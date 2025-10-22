@@ -35,10 +35,19 @@ export default function discordGui(
     );
     const Container = new ContainerBuilder()
         .setAccentColor(0x0099ff)
-        .addTextDisplayComponents((textDisplay) => textDisplay.setContent(eventname + ' starter den ' + eventime))
+        .addTextDisplayComponents((textDisplay) => textDisplay.setContent('## ' + eventname))
         .addMediaGalleryComponents(media)
         .addTextDisplayComponents((textDisplay) =>
-            textDisplay.setContent('Priser: \n' + 'Medlem: ' + lowprice + 'kr. \nikke Medlem: ' + highprice + 'kr.'),
+            textDisplay.setContent(
+                'Dato: ' +
+                    eventime +
+                    '\nPriser: \n' +
+                    'Medlemspris: **' +
+                    lowprice +
+                    'kr.** \nikke Medlem: **' +
+                    highprice +
+                    'kr.**',
+            ),
         )
         .addSeparatorComponents((separator) => separator)
         .addActionRowComponents((actionRow) => actionRow.setComponents(buttonurl, kommer, kommerikke));
