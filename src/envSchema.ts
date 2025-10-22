@@ -4,6 +4,10 @@ import Joi from 'joi';
 
 const envSchema = Joi.object({
     DISCORD_TOKEN: Joi.string().required(),
+    // Optional Facebook crawler configuration
+    FB_ACCESS_TOKEN: Joi.string().optional(),
+    // Comma-separated list of Facebook page names or IDs to crawl for events (e.g. "page1,page2")
+    FB_PAGES: Joi.string().optional(),
 });
 
 const res = envSchema.validate(process.env, { allowUnknown: true });
