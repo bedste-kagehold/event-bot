@@ -30,7 +30,7 @@ export default async function idaCrawler() {
                 Status: ['Afholdes', 'Venteliste'],
                 date: [
                     'StartDate_date',
-                    '2025-10-22',
+                    `${endSearchDate.getDate().toString().padStart(2, '0')}`,
                     `${endSearchDate.getFullYear()}-${(endSearchDate.getMonth() + 1)
                         .toString()
                         .padStart(2, '0')}-${endSearchDate.getDate().toString().padStart(2, '0')}`,
