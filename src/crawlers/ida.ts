@@ -36,7 +36,7 @@ export default async function idaCrawler() {
                         .padStart(2, '0')}-${endSearchDate.getDate().toString().padStart(2, '0')}`,
                 ],
             },
-            query: 'sushi',
+            query: '*',
             sort: {
                 StartDate_date: 'asc',
                 DatePublished_date: 'asc',
