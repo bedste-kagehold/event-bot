@@ -13,8 +13,12 @@ export default function discordGui(
 ) {
     const eventime24h: string[] = eventtime.split(' ');
     console.log(eventime24h);
+    // Convert MM/DD/YYYY to DD/MM/YYYY
+    const dateParts = eventime24h[0]?.split('/') ?? [];
+    const reformattedDate =
+        dateParts.length === 3 ? `${dateParts[1]}/${dateParts[0]}/${dateParts[2]}` : (eventime24h[0] ?? '');
     const eventime =
-        eventime24h[0] +
+        reformattedDate +
         ' ' +
         (eventime24h[2] === 'PM'
             ? (parseInt(eventime24h[1]!.split(':')[0]!) + 12).toString() + ':' + eventime24h[1]!.split(':')[1]
