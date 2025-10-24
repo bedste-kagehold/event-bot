@@ -18,6 +18,7 @@ interface TypedDocument {
 
 export default async function idaCrawler() {
     const endSearchDate = new Date(Date.now() + months(1));
+    const startSearchDate = new Date(Date.now());
 
     const res = await axios.post<{ TypedDocuments: TypedDocument[] }>(
         'https://api.cludo.com/api/v3/2677/12845/search',
@@ -30,7 +31,7 @@ export default async function idaCrawler() {
                 Status: ['Afholdes', 'Venteliste'],
                 date: [
                     'StartDate_date',
-                    `${endSearchDate.getDate().toString().padStart(2, '0')}`,
+                    `${startSearchDate.getFullYear()}`,
                     `${endSearchDate.getFullYear()}-${(endSearchDate.getMonth() + 1)
                         .toString()
                         .padStart(2, '0')}-${endSearchDate.getDate().toString().padStart(2, '0')}`,
