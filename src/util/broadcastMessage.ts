@@ -2,7 +2,6 @@ import { client } from '../client.js';
 import fs from 'fs';
 import discordGui from '../discordGui.js';
 import { MessageFlags } from 'discord.js';
-import { waitForSeconds } from '../wait.js';
 
 export async function broadcastMessage(guildId: string, channelId: string, message: string[]) {
     console.log(message);
@@ -31,6 +30,5 @@ export async function broadcastMessage(guildId: string, channelId: string, messa
             components: [Container],
             flags: MessageFlags.IsComponentsV2,
         });
-        await waitForSeconds(10);
     }
 }
