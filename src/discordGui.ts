@@ -37,22 +37,25 @@ export default function discordGui(
     const media = new MediaGalleryBuilder().addItems((mediaGalleryItem) =>
         mediaGalleryItem.setURL(imagelink).setDescription('Billede for ' + eventname),
     );
+    let text = '';
+    if (highprice != '') {
+        text =
+            'Dato: ' +
+            eventime +
+            '\nPriser: \n' +
+            'Medlemspris: **' +
+            lowprice +
+            '** \nikke Medlem: **' +
+            highprice +
+            '**';
+    } else {
+        text = 'Dato: ' + eventime + '\nPriser: \n' + 'Medlemspris: **' + lowprice + '**';
+    }
     const Container = new ContainerBuilder()
         .setAccentColor(0x0099ff)
         .addTextDisplayComponents((textDisplay) => textDisplay.setContent('## ' + eventname))
         .addMediaGalleryComponents(media)
-        .addTextDisplayComponents((textDisplay) =>
-            textDisplay.setContent(
-                'Dato: ' +
-                    eventime +
-                    '\nPriser: \n' +
-                    'Medlemspris: **' +
-                    lowprice +
-                    'kr.** \nikke Medlem: **' +
-                    highprice +
-                    'kr.**',
-            ),
-        )
+        .addTextDisplayComponents((textDisplay) => textDisplay.setContent(text))
         .addSeparatorComponents((separator) => separator)
         .addActionRowComponents((actionRow) => actionRow.setComponents(buttonurl, kommer, kommerikke));
 

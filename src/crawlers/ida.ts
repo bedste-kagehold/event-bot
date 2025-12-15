@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { days, months } from '../util/time.js';
 import { broadcastMessage } from '../util/broadcastMessage.js';
+import { pricefilter } from '../util/pricefilter.js';
 import fs from 'fs';
 
 interface TypedDocument {
@@ -13,6 +14,7 @@ interface TypedDocument {
         Title: { Value: string };
         HighPrice: { Value: string };
         LowPrice: { Value: string };
+        Content: { Values: string[] };
     };
 }
 
@@ -75,13 +77,23 @@ export default async function idaCrawler() {
                 continue;
             }
 
+            let nomembershipprice = '';
+            let membershipprice = '';
+            pricefilter(doc.Fields.Content.Values).forEach((entry) => {
+                if (entry.label === 'Deltager, ikke medlem af IDA') {
+                    nomembershipprice = entry.price;
+                } else if (entry.label === 'Medlem' || entry.label === 'Studiemedlem') {
+                    membershipprice = entry.price;
+                }
+            });
+
             await broadcastMessage(guildId, channelId, [
                 doc.Fields.Url.Value,
                 doc.Fields.Image.Value,
                 doc.Fields.Title.Value,
                 doc.Fields.StartDate.Value,
-                doc.Fields.HighPrice.Value,
-                doc.Fields.LowPrice.Value,
+                nomembershipprice,
+                membershipprice,
             ]);
 
             cachedEvents[guildId] = [
