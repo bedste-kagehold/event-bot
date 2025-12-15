@@ -19,7 +19,7 @@ interface TypedDocument {
 }
 
 export default async function idaCrawler() {
-    const endSearchDate = new Date(Date.now() + months(1));
+    const endSearchDate = new Date(Date.now() + months(2));
     const startSearchDate = new Date(Date.now());
 
     const res = await axios.post<{ TypedDocuments: TypedDocument[] }>(
@@ -34,7 +34,7 @@ export default async function idaCrawler() {
                 date: [
                     'StartDate_date',
                     `${startSearchDate.getFullYear()}`,
-                    `${endSearchDate.getFullYear()}-${(endSearchDate.getMonth() + 2)
+                    `${endSearchDate.getFullYear()}-${(endSearchDate.getMonth() + 1)
                         .toString()
                         .padStart(2, '0')}-${endSearchDate.getDate().toString().padStart(2, '0')}`,
                 ],
