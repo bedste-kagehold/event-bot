@@ -39,6 +39,8 @@ export default async function idaCrawler() {
                         .padStart(2, '0')}-${endSearchDate.getDate().toString().padStart(2, '0')}`,
                 ],
             },
+            perPage: 1000,
+            page: 1,
             query: '*',
             sort: {
                 StartDate_date: 'asc',
@@ -78,7 +80,7 @@ export default async function idaCrawler() {
             }
 
             let nomembershipprice = '';
-            let membershipprice = '';
+            let membershipprice = 'Gratis';
             pricefilter(doc.Fields.Content.Values).forEach((entry) => {
                 if (entry.label === 'Deltager, ikke medlem af IDA') {
                     nomembershipprice = entry.price;
@@ -86,10 +88,14 @@ export default async function idaCrawler() {
                     membershipprice = entry.price;
                 }
             });
+            const image =
+                doc.Fields.Image?.Value && doc.Fields.Image.Value.trim() !== ''
+                    ? doc.Fields.Image.Value
+                    : 'https://www.ida.dk/-/media/ida/images/om-ida/logoer/ida-logo-social-media.ashx';
 
             await broadcastMessage(guildId, channelId, [
                 doc.Fields.Url.Value,
-                doc.Fields.Image.Value,
+                image,
                 doc.Fields.Title.Value,
                 doc.Fields.StartDate.Value,
                 nomembershipprice,

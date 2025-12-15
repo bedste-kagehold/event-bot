@@ -10,5 +10,7 @@ content-type: application/json
         "RelevantFor": [ "Studerende" ],
         "Status": [ "Afholdes", "Venteliste" ]
     },
+    "perPage": 1000,
+    "page": 1,
     "query": "*"
 }
