@@ -34,7 +34,7 @@ export default async function idaCrawler() {
                 date: [
                     'StartDate_date',
                     `${startSearchDate.getFullYear()}`,
-                    `${endSearchDate.getFullYear()}-${(endSearchDate.getMonth() + 1)
+                    `${endSearchDate.getFullYear()}-${(endSearchDate.getMonth() + 2)
                         .toString()
                         .padStart(2, '0')}-${endSearchDate.getDate().toString().padStart(2, '0')}`,
                 ],
