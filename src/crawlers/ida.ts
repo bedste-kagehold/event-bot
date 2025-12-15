@@ -94,6 +94,7 @@ export default async function idaCrawler() {
                     : 'https://www.ida.dk/-/media/ida/images/om-ida/logoer/ida-logo-social-media.ashx';
 
             await broadcastMessage(guildId, channelId, [
+                doc.Fields.EventId.Value,
                 doc.Fields.Url.Value,
                 image,
                 doc.Fields.Title.Value,

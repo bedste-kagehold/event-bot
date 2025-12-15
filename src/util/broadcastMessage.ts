@@ -19,13 +19,21 @@ export async function broadcastMessage(guildId: string, channelId: string, messa
 
     if (channel.isSendable()) {
         console.log(`Sending message to guild ${guildId} in channel ${channelId}`);
-        if (message.length !== 6) {
+        if (message.length !== 7) {
             console.error(
-                `Invalid message format for guild ${guildId}, expected 6 elements but got ${message.length}.`,
+                `Invalid message format for guild ${guildId}, expected 7 elements but got ${message.length}.`,
             );
             return;
         }
-        const Container = discordGui(message[0]!, message[1]!, message[2]!, message[3]!, message[4]!, message[5]!);
+        const Container = discordGui(
+            message[0]!,
+            message[1]!,
+            message[2]!,
+            message[3]!,
+            message[4]!,
+            message[5]!,
+            message[6]!,
+        );
         await channel.send({
             components: [Container],
             flags: MessageFlags.IsComponentsV2,
