@@ -91,7 +91,7 @@ export default async function idaCrawler() {
             const image =
                 doc.Fields.Image?.Value && doc.Fields.Image.Value.trim() !== ''
                     ? doc.Fields.Image.Value
-                    : 'https://www.ida.dk/-/media/ida/images/om-ida/logoer/ida-logo-social-media.ashx';
+                    : 'https://ida.dk/media/10991/2205_ida_standardbillede_arrangementer_1200x630.jpg';
 
             await broadcastMessage(guildId, channelId, [
                 doc.Fields.EventId.Value,
