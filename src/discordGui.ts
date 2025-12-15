@@ -40,16 +40,9 @@ export default function discordGui(
     let text = '';
     if (highprice != '') {
         text =
-            'Dato: ' +
-            eventime +
-            '\nPriser: \n' +
-            'Medlemspris: **' +
-            lowprice +
-            '** \nikke Medlem: **' +
-            highprice +
-            '**';
+            'Dato: ' + eventime + '\nPriser: \n' + 'Medlem: **' + lowprice + '** \nikke Medlem: **' + highprice + '**';
     } else {
-        text = 'Dato: ' + eventime + '\nPriser: \n' + 'Medlemspris: **' + lowprice + '**';
+        text = 'Dato: ' + eventime + '\nPriser: \n' + 'Medlem: **' + lowprice + '**';
     }
     const Container = new ContainerBuilder()
         .setAccentColor(0x0099ff)
