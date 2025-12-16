@@ -5,6 +5,8 @@ import { registerEvents } from './registerEvents.js';
 import { client } from './client.js';
 import './crawler.js';
 import discordGui, { eventStore } from './discordGui.js';
+import { commands } from './util/slashCommands.js';
+import { runAllCrawlers } from './crawler.js';
 
 client.once(Events.ClientReady, (client) => {
     console.log(chalk.bold.greenBright(`Logged in as ${client.user.tag}`));
@@ -71,6 +73,28 @@ client.on('interactionCreate', (interaction) => {
         .catch((err) => {
             console.error(`Failed to update attendance for event ${interaction.message.id}:`, err);
         });
+});
+client.application?.commands.set(commands).catch((err) => {
+    console.error('Failed to register slash commands:', err);
+});
+client.on('interactionCreate', (interaction) => {
+    if (!interaction.isChatInputCommand()) return;
+    if (interaction.commandName === 'runnow') {
+        interaction
+            .reply('Running now')
+            .then(() => {
+                runAllCrawlers()
+                    .then(() => {
+                        console.log('Crawlers run successfully via /ping command.');
+                    })
+                    .catch((err) => {
+                        console.error('Error running crawlers:', err);
+                    });
+            })
+            .catch((err) => {
+                console.error('Error replying to /ping command:', err);
+            });
+    }
 });
 
 registerEvents(client);

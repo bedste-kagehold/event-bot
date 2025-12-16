@@ -2,7 +2,7 @@ import { CronJob } from 'cron';
 import idaCrawler from './crawlers/ida.js';
 // import fbCrawler from './crawlers/fb.js';
 
-async function runAllCrawlers() {
+export async function runAllCrawlers() {
     //await Promise.allSettled([idaCrawler(), fbCrawler()]);
     await Promise.all([idaCrawler()]);
 }
