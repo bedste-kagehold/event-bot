@@ -13,14 +13,14 @@ client.on('interactionCreate', (interaction) => {
             .then(() => {
                 runAllCrawlers()
                     .then(() => {
-                        console.log('Crawlers run successfully via /ping command.');
+                        console.log('Crawlers run successfully via /runnow command.');
                     })
                     .catch((err) => {
                         console.error('Error running crawlers:', err);
                     });
             })
             .catch((err) => {
-                console.error('Error replying to /ping command:', err);
+                console.error('Error replying to /runnow command:', err);
             });
     }
 });

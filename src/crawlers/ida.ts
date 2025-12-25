@@ -2,6 +2,7 @@ import axios from 'axios';
 import { days, months } from '../util/time.js';
 import { broadcastMessage } from '../util/broadcastMessage.js';
 import { pricefilter } from '../util/pricefilter.js';
+import { parseUsDateTime } from '../util/praseUSdateandtime.js';
 import fs from 'fs';
 
 interface TypedDocument {
@@ -103,9 +104,12 @@ export default async function idaCrawler() {
                 membershipprice,
             ]);
 
+            const eventStart = parseUsDateTime(doc.Fields.StartDate.Value);
+            const expiresAt = eventStart.getTime() - days(7);
+
             cachedEvents[guildId] = [
                 ...(cachedEvents[guildId] || []),
-                { eventId: doc.Fields.EventId.Value, expiresAt: Date.now() + days(7) },
+                { eventId: doc.Fields.EventId.Value, expiresAt: Math.max(expiresAt, Date.now()) },
             ];
         }
     }
