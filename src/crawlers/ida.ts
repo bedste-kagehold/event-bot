@@ -58,10 +58,17 @@ export default async function idaCrawler() {
     if (!fs.existsSync('events/cachedEvents.json')) {
         fs.writeFileSync('events/cachedEvents.json', '{}');
     }
+    if (!fs.existsSync('events/blacklistedEvents.json')) {
+        fs.writeFileSync('events/blacklistedEvents.json', '{}');
+    }
 
     const cachedEvents = JSON.parse(fs.readFileSync('events/cachedEvents.json', 'utf-8')) as Record<
         string,
         { eventId: string; expiresAt: number }[]
+    >;
+    const blacklistedEvents = JSON.parse(fs.readFileSync('events/blacklistedEvents.json', 'utf-8')) as Record<
+        string,
+        { titleIncludeds: string }[]
     >;
 
     // Expire old events
@@ -78,6 +85,9 @@ export default async function idaCrawler() {
         )) {
             if (cachedEvents[guildId]?.some((e) => e.eventId === doc.Fields.EventId.Value)) {
                 continue;
+            }
+            if (blacklistedEvents[guildId]?.some((e) => doc.Fields.Title.Value.includes(e.titleIncludeds))) {
+                break;
             }
 
             let nomembershipprice = '';

@@ -20,8 +20,11 @@ process.on('SIGINT', () => {
 
 await client.login(process.env.DISCORD_TOKEN);
 
-client.application?.commands.set(commands).catch((err) => {
-    console.error('Failed to register slash commands:', err);
-});
+client.application?.commands
+    .set(commands)
+    .then(console.log(commands)!)
+    .catch((err) => {
+        console.error('Failed to register slash commands:', err);
+    });
 
 registerEvents(client);
