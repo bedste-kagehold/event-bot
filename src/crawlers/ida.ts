@@ -86,7 +86,11 @@ export default async function idaCrawler() {
             if (cachedEvents[guildId]?.some((e) => e.eventId === doc.Fields.EventId.Value)) {
                 continue;
             }
-            if (blacklistedEvents[guildId]?.some((e) => doc.Fields.Title.Value.includes(e.titleIncludeds))) {
+            if (
+                blacklistedEvents[guildId]?.some((e) =>
+                    doc.Fields.Title.Value.toLowerCase().includes(e.titleIncludeds.toLowerCase()),
+                )
+            ) {
                 break;
             }
 
