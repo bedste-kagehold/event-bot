@@ -29,7 +29,7 @@ export default async function idaCrawler() {
             ResponseType: 'Json',
             facets: {
                 Category: ['Arrangementer'],
-                City: ['København', 'Nordsjælland'],
+                City: ['København', 'Nordsjælland', 'ØvrigeSjælland'],
                 RelevantFor: ['Studerende'],
                 Status: ['Afholdes', 'Venteliste'],
                 date: [
